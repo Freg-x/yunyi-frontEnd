@@ -12,7 +12,7 @@ export default {
   name: 'intro',
   data(){
       return {
-          test:'intro'
+          test:'这是本网站的主页，但目前竟然啥也没有！'
       }
   }
 }

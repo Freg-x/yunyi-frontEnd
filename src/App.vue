@@ -2,8 +2,10 @@
   <div id="app">
 
     <el-container>
-      <el-header height = "40px">
+      <el-header height = "35px">
         <el-row align="middle" type="flex">
+
+          <!--左半部分banner-->
           <el-col :span="2" >
             <router-link to="/intro">
               <img src="./assets/logo-lrs.png" alt="logo" class="logo">
@@ -17,7 +19,8 @@
             <router-link v-bind:to="section.url">{{section.name}}</router-link>
           </el-col>
 
-          <el-col :span="1" offset="14">
+          <!--右半部分banner-->
+          <el-col :span="1" :offset="rightOffset">
             <el-popover
               placement="bottom"
               title="来自森下下士的提示："
@@ -28,13 +31,13 @@
                 </el-button>
             </el-popover>
           </el-col>
-
           <el-col :span="2">
             <el-button type="text" size="small" @click="LoginFormVisible=true">登录｜注册</el-button>
           </el-col>
 
         </el-row>
 
+      <!--登录框-->
       <el-dialog
       title="欢迎来到云译"
       :visible.sync="LoginFormVisible"
@@ -59,6 +62,10 @@
                  <el-button type="text" slot="suffix" class="getCaptchaText" :disabled="getCaptchaDisable">获取验证码</el-button>
                </el-input>
             </div>
+
+            <div style="margin:25px 0px 0px 0px">
+              <el-button type="success" id="submitButton" @click="sendRegisterRequest">登录/注册</el-button>
+            </div>
            
         </el-form>
 
@@ -81,6 +88,7 @@ export default {
   name: 'app',
   data(){
     return{
+      rightOffset:14,
       sections:[
         {
           name:'新闻',
@@ -141,6 +149,12 @@ export default {
     }
   },
 
+  methods:{
+    sendRegisterRequest:function(){
+      alert("等待域名备案中。。。");
+    }
+  },
+
   components: {
   }
 }
@@ -193,6 +207,11 @@ a{
 .getCaptchaText{
   margin-right: 4px;
   color:#67C23A;
+}
+
+#submitButton{
+  width: 100%;
+  color:white;
 }
 
 </style>

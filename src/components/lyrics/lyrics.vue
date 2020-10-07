@@ -12,7 +12,7 @@ export default {
   name: 'lyrics',
   data(){
       return {
-          test:'lyrics'
+          test:'还在施工中。。。'
       }
   }
 }
