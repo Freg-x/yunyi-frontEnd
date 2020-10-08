@@ -1,8 +1,8 @@
 <template>
   <div id="app">
 
-    <el-container>
-      <el-header height = "35px">
+    <el-container >
+      <el-header height = "35px" v-if="!isMobile">
         <el-row align="middle" type="flex">
 
           <!--左半部分banner-->
@@ -88,6 +88,7 @@ export default {
   name: 'app',
   data(){
     return{
+      isMobile:true,
       rightOffset:14,
       sections:[
         {
@@ -152,10 +153,21 @@ export default {
   methods:{
     sendRegisterRequest:function(){
       alert("等待域名备案中。。。");
+    },
+    _isMobile:function() {
+      let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+      return flag;
     }
   },
 
   components: {
+  },
+
+created:function(){
+      this.isMobile = this._isMobile();
+      if(this.isMobile){
+        this.$router.push({name:'mobile'});
+      }
   }
 }
 </script>

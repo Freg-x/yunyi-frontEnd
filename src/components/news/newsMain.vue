@@ -1,5 +1,7 @@
 <template>
   <div id="newsMain">
+
+      <!--类别选择器-->
       <el-row>
           <el-col 
           :span="4"
@@ -24,7 +26,8 @@
           </el-col>
           
       </el-row>
-
+    
+    <!--查询和模式选择器-->
       <el-row>
           <el-col :span="14">
             <el-menu
@@ -62,6 +65,7 @@
           </el-col>
       </el-row>
 
+        <!--所有新闻的列表-->
       <div class="allNews">
         <div
         class="newsCell"
@@ -72,13 +76,14 @@
             <div class="firstLine">
                 <div class="left">
                     <el-avatar :size="25" :src="news.writerAvatar"></el-avatar>
-                    <div class="newsTitle">{{news.title}}</div>
+                    <div class="newsTitle" @click="handleNewsClick(news.newsId)">{{news.curMode == 0?news.title:news.transTitle}}</div>
                 </div>
                 <el-switch
                 v-model="news.curMode"
-                active-text="原文模式"
-                inactive-text="翻译模式"
+                active-text="翻译模式"
+                inactive-text="原文模式"
                 :disabled="!news.hasTrans"
+                :title="news.switchTitle"
                 >
                 </el-switch>
             </div>
@@ -92,7 +97,7 @@
             </div>
 
             <div class="thirdLine">
-                {{news.summary+"..."}}
+                {{news.curMode==0?news.summary+"...":news.transSummary+"..."}}
             </div>
             <div class="lastLine">
                 <div>
@@ -111,6 +116,13 @@
 
         </div>
       </div>
+
+    <el-pagination
+    id="newsPagination"
+    layout="prev, pager, next"
+    :total="newsPageCount"
+    @current-change="handleCurrentPageChange"
+    ></el-pagination>
       
         
   </div>
@@ -165,36 +177,97 @@ export default {
           displayMode:"1",
 
           newsList:[
-              {
+              {   newsId:"1",
                   title:"「每日 1 题」9 月热题来袭！",
+                  transTitle:" 原文的翻译原文的翻译原文的翻译",
                   writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
                   writerName:"Freakx",
                   genre:"科技",
                   viewNum:"16.4k",
                   hasTrans:true,
+                  switchTitle:"显示最高赞翻译",
                   curMode:0,
                   likeNum:23,
                   commentNum:5,
                   transRequestNum:6,
                   summary:"前几天看了一份鹅场的面试题，算法部分大半是动态规划，最后一题就是写一个计算编辑距离的函数，今天就专门写一篇文章来探讨一下这个问题。我个人很喜欢编辑距离这个问题，因为它看起来十分困难，解法却出奇得简单漂亮，而且它是少有的比较实用的算法（是的，我承认很多算法问题都不太实用)",
+                  transSummary:"原文的翻译原文的翻译原文的翻译原文的翻译原文的翻译原文的翻译原文的翻译原文的翻译原文的翻译原文的翻译原文的翻译原文的翻译"
               },
-              {
+              {     
+                  newsId:"2",
                   title:"「每日 1 题」10 月热题来袭！",
+                  transTitle:"",
                   writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
                   writerName:"Freakx",
                   genre:"科技",
                   viewNum:"233.4k",
                   hasTrans:false,
+                  switchTitle:"该文章目前没有翻译",
                   curMode:0,
                   likeNum:23,
                   commentNum:5,
                   transRequestNum:6,
                   summary:"前几天看了一份鹅场的面试题，算法部分大半是动态规划，最后一题就是写一个计算编辑距离的函数，今天就专门写一篇文章来探讨一下这个问题。我个人很喜欢编辑距离这个问题，因为它看起来十分困难，解法却出奇得简单漂亮，而且它是少有的比较实用的算法（是的，我承认很多算法问题都不太实用)",
+                  transSummary:""
+              },
+              {
+                  newsId:"3",
+                  title:"「每日 1 题」10 月热题来袭！",
+                  transTitle:"",
+                  writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+                  writerName:"Freakx",
+                  genre:"科技",
+                  viewNum:"233.4k",
+                  hasTrans:false,
+                  switchTitle:"该文章目前没有翻译",
+                  curMode:0,
+                  likeNum:23,
+                  commentNum:5,
+                  transRequestNum:6,
+                  summary:"前几天看了一份鹅场的面试题，算法部分大半是动态规划，最后一题就是写一个计算编辑距离的函数，今天就专门写一篇文章来探讨一下这个问题。我个人很喜欢编辑距离这个问题，因为它看起来十分困难，解法却出奇得简单漂亮，而且它是少有的比较实用的算法（是的，我承认很多算法问题都不太实用)",
+                  transSummary:""
+              },
+              {
+                  newsId:"4",
+                  title:"「每日 1 题」10 月热题来袭！",
+                  transTitle:"",
+                  writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+                  writerName:"Freakx",
+                  genre:"科技",
+                  viewNum:"233.4k",
+                  hasTrans:false,
+                  switchTitle:"该文章目前没有翻译",
+                  curMode:0,
+                  likeNum:23,
+                  commentNum:5,
+                  transRequestNum:6,
+                  summary:"前几天看了一份鹅场的面试题，算法部分大半是动态规划，最后一题就是写一个计算编辑距离的函数，今天就专门写一篇文章来探讨一下这个问题。我个人很喜欢编辑距离这个问题，因为它看起来十分困难，解法却出奇得简单漂亮，而且它是少有的比较实用的算法（是的，我承认很多算法问题都不太实用)",
+                  transSummary:""
+              },
+              {
+                  newsId:"5",
+                  title:"「每日 1 题」10 月热题来袭！",
+                  transTitle:"",
+                  writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+                  writerName:"Freakx",
+                  genre:"科技",
+                  viewNum:"233.4k",
+                  hasTrans:false,
+                  switchTitle:"该文章目前没有翻译",
+                  curMode:0,
+                  likeNum:23,
+                  commentNum:5,
+                  transRequestNum:6,
+                  summary:"前几天看了一份鹅场的面试题，算法部分大半是动态规划，最后一题就是写一个计算编辑距离的函数，今天就专门写一篇文章来探讨一下这个问题。我个人很喜欢编辑距离这个问题，因为它看起来十分困难，解法却出奇得简单漂亮，而且它是少有的比较实用的算法（是的，我承认很多算法问题都不太实用)",
+                  transSummary:""
               }
-          ]          
+          ],
+
+          newsPageCount:900
       }
   },
   computed:{
+      
   },
   components:{
   },
@@ -210,7 +283,15 @@ export default {
 
           console.log(key);
 
+      },
+
+      handleNewsClick:function(_newsId){
+          this.$router.push({name:'singleNews',params:{newsId:_newsId}});
+      },
+      handleCurrentPageChange(newPage){
+          console.log(newPage);
       }
+
   }
 }
 
@@ -225,11 +306,11 @@ export default {
   color: #909399;
 }
 
-.genreSelect{
+#newsMain .genreSelect{
     color:#303133;
 }
 
-.genreWrapper{
+#newsMain .genreWrapper{
     background-color: white;
     height: 70px;
     font-size: 14px;
@@ -244,15 +325,15 @@ export default {
     transition:0.2s;
 }
 
-.genreWrapper:hover{
+#newsMain .genreWrapper:hover{
     cursor: pointer;
 }
 
-#modeChangeMenu{
+#newsMain #modeChangeMenu{
     margin:10px 10px;
 }
 
-#newsSearchInput{
+#newsMain #newsSearchInput{
     border:none;
     border-radius: 0px;
     margin-top:31px;
@@ -263,19 +344,19 @@ export default {
     background-color: #EEEEEE;
 }
 
-#newsSearchInput:focus{
+#newsMain #newsSearchInput:focus{
     border-bottom:1px solid #909399;
 }
 
-.newsSearchIcon{
+#newsMain .newsSearchIcon{
     margin-top:45px;
 }
 
-.newsSearchIcon:hover{
+ #newsMain .newsSearchIcon:hover{
     cursor: pointer;
 }
 
-#sortMethod{
+#newsMain #sortMethod{
     font-size: 12px;
     border:none;
     background-color:#EEEEEE;
@@ -284,7 +365,7 @@ export default {
     transition: 0.3s;
 }
 
-.el-icon-arrow-up{
+#newsMain .el-row .el-col .el-select .el-input .el-input__suffix .el-input__suffix-inner .el-icon-arrow-up{
     margin-top:16px;
 }
 
@@ -306,10 +387,6 @@ export default {
     background-color: white;
 }
 
-.allNews .newsCell:hover{
-    cursor: pointer;
-}
-
 .allNews .newsCell .firstLine{
     margin:10px 0px;
     display: flex;
@@ -322,6 +399,7 @@ export default {
 }
 
 .allNews .newsCell .firstLine .left .newsTitle{
+    margin-left: 10px;
     font-size:16px;
     font-weight: bold;
     color:black;
@@ -330,6 +408,7 @@ export default {
 
 .allNews .newsCell .firstLine .left .newsTitle:hover{
     color:teal;
+    cursor: pointer;
 }
 
 .allNews .newsCell .secondLine{
@@ -360,5 +439,17 @@ export default {
     width: 40%;
     justify-content: space-between;
 
+}
+
+#newsMain .el-pagination .btn-next{
+    background-color: #EEEEEE;
+}
+
+#newsMain .el-pagination .btn-prev{
+    background-color: #EEEEEE;
+}
+
+#newsMain .el-pager li{
+    background-color: #EEEEEE;
 }
 </style>
