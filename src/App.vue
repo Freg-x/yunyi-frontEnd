@@ -77,6 +77,11 @@
       <el-main>
         <router-view></router-view>
       </el-main>
+
+      <el-footer height = "60px" v-if="!isMobile">
+            &copy;CopyRight 同济大学创新项目
+        </el-footer>
+      
     </el-container> 
 
   </div>
@@ -224,6 +229,15 @@ a{
 #submitButton{
   width: 100%;
   color:white;
+}
+
+.el-footer{
+  color:white;
+  width: 100%;
+  background-color: #303133;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>
