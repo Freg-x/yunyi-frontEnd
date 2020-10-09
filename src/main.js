@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import axios from 'axios'
+
 import App from './App.vue'
 import mobile from './components/common/mobile.vue'
 import news from './components/news/news.vue'
@@ -14,6 +16,7 @@ import './plugins/element.js'
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
+Vue.prototype.$axios = axios;
 
 const routes = [
   {

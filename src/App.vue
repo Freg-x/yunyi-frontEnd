@@ -44,26 +44,37 @@
       width="30%"
       center>
         <el-form :model="LoginInfo">
-            <el-input v-model="LoginInfo.phoneNumber" placeholder="输入手机号" clearable=true size="medium" maxlength="11" show-word-limit>
-              <el-select v-model="LoginInfo.areaNumber" slot="prepend" :value="areaList.areaNumber">
-                <el-option
-                v-for="(area,index) in areaList"
-                :key="index"
-                :label="area.value"
-                :value="area.areaNumber"
-                >
-                  <span>{{area.desc}}</span>
-                </el-option>
-              </el-select>
-            </el-input>
+            <el-form-item>
+              <el-input v-model="LoginInfo.phoneNumber" placeholder="输入手机号" clearable size="medium" maxlength="11" show-word-limit>
+                <el-select v-model="LoginInfo.areaNumber" slot="prepend" :value="areaList.areaNumber">
+                  <el-option
+                  v-for="(area,index) in areaList"
+                  :key="index"
+                  :label="area.value"
+                  :value="area.areaNumber"
+                  >
+                    <span>{{area.desc}}</span>
+                  </el-option>
+                </el-select>
+              </el-input>
+            </el-form-item>
             
-            <div style="margin:15px 0px">
+            <el-form-item>
+              <div style="margin:-10px 0px">
                <el-input v-model="LoginInfo.captcha" placeholder="输入验证码" size="medium" maxlength="6">
-                 <el-button type="text" slot="suffix" class="getCaptchaText" :disabled="getCaptchaDisable">获取验证码</el-button>
+                 <el-button type="text" 
+                 slot="suffix" 
+                 class="getCaptchaText" 
+                 :disabled="getCaptchaDisable" 
+                 @click="handleCaptchaSend">
+                 {{captchaWords}}
+                 </el-button>
                </el-input>
-            </div>
+              </div>
+            </el-form-item>
+            
 
-            <div style="margin:25px 0px 0px 0px">
+            <div style="margin:25px 0px -10px 0px">
               <el-button type="success" id="submitButton" @click="sendRegisterRequest">登录/注册</el-button>
             </div>
            
@@ -145,17 +156,36 @@ export default {
         areaNumber:86,
         phoneNumber:'',
         captcha:''
-      }
+      },
+      CaptchaInterval:0,
     }
   },
 
   computed:{
     getCaptchaDisable:function(){
-      return this.LoginInfo.phoneNumber.length != 11;
+      return this.LoginInfo.phoneNumber.length != 11 || this.CaptchaInterval > 0;
+    },
+    captchaWords:function(){
+      return this.CaptchaInterval <= 0?"获取验证码":this.CaptchaInterval+"秒后重发";
     }
   },
 
   methods:{
+    handleCaptchaSend:function(){
+
+      this.$message("验证码已发送");
+      this.CaptchaInterval = 60;
+      
+      var Decounter = setInterval(()=>{
+
+        this.CaptchaInterval--;
+        if(this.CaptchaInterval <= 0){
+          clearInterval(Decounter);
+        }
+
+      },1000);
+
+    },
     sendRegisterRequest:function(){
       alert("等待域名备案中。。。");
     },
