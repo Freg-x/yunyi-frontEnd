@@ -1,8 +1,8 @@
 <template>
-  <div id="newsOther">
+  <div id="writerRecommand">
       <div>
           <div class="rest">
-            今日热门
+            作者的其他内容
           </div>
       </div>
       
@@ -12,7 +12,7 @@
 <script>
 
 export default {
-  name: 'newsOther',
+  name: 'writerRecommand',
   data(){
       return {
           
@@ -35,8 +35,8 @@ export default {
 
 .rest{
   margin-left: 20px;
-  margin-right:20px;
-  margin-bottom:20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
   padding: 50px 20px;
   color:black;
   height: 100px;

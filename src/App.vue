@@ -104,8 +104,11 @@ export default {
   name: 'app',
   data(){
     return{
-      isMobile:true,
+      isMobile:false,
+      
+      //由于加入新按钮所以局右的offset可能改变
       rightOffset:14,
+
       sections:[
         {
           name:'新闻',
@@ -165,12 +168,15 @@ export default {
     getCaptchaDisable:function(){
       return this.LoginInfo.phoneNumber.length != 11 || this.CaptchaInterval > 0;
     },
+
+    //验证码一栏的显示字
     captchaWords:function(){
       return this.CaptchaInterval <= 0?"获取验证码":this.CaptchaInterval+"秒后重发";
     }
   },
 
   methods:{
+    //发送验证码到用户手机
     handleCaptchaSend:function(){
 
       this.$message("验证码已发送");
@@ -186,9 +192,12 @@ export default {
       },1000);
 
     },
+
+    //用户提交注册信息
     sendRegisterRequest:function(){
       alert("等待域名备案中。。。");
     },
+    //检测是否手机端访问
     _isMobile:function() {
       let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
       return flag;
