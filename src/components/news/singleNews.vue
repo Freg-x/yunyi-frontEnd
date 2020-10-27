@@ -1,9 +1,29 @@
 <template>
   <div id="singleNews">
       <el-row>
+        <!-- 左半部分，主要内容和评论区 -->
           <el-col :span="18">
-            <div class="mainContent">文章的主要内容</div>
+           <div class="mainContent">
+             <!-- 面包屑导航区 -->
+            <div class="breadcrumbArea">
+
+             <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/news'}">新闻</el-breadcrumb-item>
+                <el-breadcrumb-item>{{ArticleInfo.genre}}</el-breadcrumb-item>
+                <el-breadcrumb-item>{{ArticleInfo.title}}</el-breadcrumb-item>
+             </el-breadcrumb>
+             <hr class="greyline"> 
+             </div>
+             <!-- 作者和文章信息区 -->
+             <div class="writerInfoArea">
+              <el-avatar :size="40" :src="ArticleInfo.writerAvatar"></el-avatar>
+              <div class="writerName">{{ArticleInfo.writerName}}</div>
+             </div>
+
+            </div>
           </el-col>
+          <!-- 右半部分，作者推荐和其他新闻推荐 -->
           <el-col :span="6">
             <writer-recommand></writer-recommand>
             <news-other></news-other>
@@ -30,6 +50,7 @@ export default {
             writerName:"Freakx",
             writerId:"1",
             genre:"政治",
+            updateTime:'2020-10-23 10:30:24',
             viewNum:"16.4k",
             likeNum:23,
             commentNum:5,
@@ -50,18 +71,37 @@ created:function(){
 </script>
 
 <style>
-#banner {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
 .mainContent{
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    margin:10px 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  margin:10px 10px;
+}
+
+.mainContent .breadcrumbArea{
+  margin:0px 20px;
+  padding:20px 10px;
+}
+
+.mainContent .greyline{
+  margin-top:20px;
+  background-color:lightgray;
+  height:1px;
+  border:none;
+}
+
+.mainContent .writerInfoArea{
+  margin:0px 20px;
+  padding:0px 10px;
+  padding-bottom:20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.mainContent ,.writerInfoArea .writerName{
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0px 15px;
 }
 </style>
