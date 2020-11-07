@@ -1,7 +1,7 @@
 <template>
   <div id="commentArea">
       <div>
-          <div class="rest">
+          <div class="commentMain">
               评论区
           </div>
       </div>
@@ -33,9 +33,9 @@ export default {
   color: #909399;
 }
 
-.rest{
-  margin-left: 20px;
-  margin-right: 20px;
+.commentMain{
+  margin-left: 10px;
+  margin-right:10px;
   margin-bottom: 20px;
   padding: 50px 20px;
   color:black;

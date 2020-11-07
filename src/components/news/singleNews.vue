@@ -18,10 +18,14 @@
              <!-- 作者和文章信息区 -->
              <div class="writerInfoArea">
               <el-avatar :size="40" :src="ArticleInfo.writerAvatar"></el-avatar>
-              <div class="writerName">{{ArticleInfo.writerName}}</div>
+              <div class="writerDescArea">                  
+                <div class="writerName">{{ArticleInfo.writerName}}</div>
+                <div class="writerUpdateTime">{{ArticleInfo.updateTime}}</div>
+              </div>
              </div>
 
             </div>
+            <comment-area></comment-area> 
           </el-col>
           <!-- 右半部分，作者推荐和其他新闻推荐 -->
           <el-col :span="6">
@@ -36,6 +40,7 @@
 
 import newsOther from './newsOther.vue';
 import writerRecommand from './writerRecommand.vue';
+import commentArea from './commentArea';
 
 export default {
   name: 'singleNews',
@@ -46,11 +51,11 @@ export default {
           ArticleInfo:{
             newsId:"1",
             title:"World experts hail Xi's proposals to boost global cause of women",
-            writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+            writerAvatar:"../../assets/logo.png",
             writerName:"Freakx",
             writerId:"1",
+            updateTime:"2020-11-4 16:00:00",
             genre:"政治",
-            updateTime:'2020-10-23 10:30:24',
             viewNum:"16.4k",
             likeNum:23,
             commentNum:5,
@@ -61,7 +66,8 @@ export default {
   },
   components:{
     newsOther,
-    writerRecommand
+    writerRecommand,
+    commentArea
   },
 created:function(){
     this.newsId = this.$route.params.newsId;
@@ -76,7 +82,8 @@ created:function(){
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  margin:10px 10px;
+  margin:0px 10px;
+  margin-bottom:20px;
 }
 
 .mainContent .breadcrumbArea{
@@ -99,9 +106,20 @@ created:function(){
   flex-direction: row;
 }
 
-.mainContent ,.writerInfoArea .writerName{
+.mainContent .writerInfoArea .writerDescArea{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.mainContent .writerInfoArea .writerDescArea .writerName{
   font-size: 20px;
   font-weight: bold;
   margin: 0px 15px;
+}
+
+.mainContent .writerInfoArea .writerDescArea .writerUpdateTime{
+  color:gray;
+  margin:0px 15px;
 }
 </style>
