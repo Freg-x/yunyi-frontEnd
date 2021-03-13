@@ -117,6 +117,7 @@
         </div>
       </div>
 
+    <!-- 底部页码切换 -->
     <el-pagination
     id="newsPagination"
     layout="prev, pager, next"
@@ -286,7 +287,7 @@ export default {
       },
 
       handleNewsClick:function(_newsId){
-          this.$router.push({name:'singleNews',params:{newsId:_newsId}});
+          this.$router.push({path:'/news/'+_newsId+'/comment'});
       },
       handleCurrentPageChange(newPage){
           console.log(newPage);

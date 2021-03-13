@@ -160,6 +160,8 @@ export default {
         phoneNumber:'',
         captcha:''
       },
+      //sms需要一个requestId
+      requestId:"",
       CaptchaInterval:0,
     }
   },
@@ -179,24 +181,84 @@ export default {
     //发送验证码到用户手机
     handleCaptchaSend:function(){
 
-      this.$message("验证码已发送");
-      this.CaptchaInterval = 60;
-      
-      var Decounter = setInterval(()=>{
-
-        this.CaptchaInterval--;
-        if(this.CaptchaInterval <= 0){
-          clearInterval(Decounter);
+      //发送sms，拿到requestId
+      this.$axios.get(
+        this.GLOBAL.requestURL+this.GLOBAL.apiController.sms,
+        {
+          params:{
+            "phone":this.LoginInfo.phoneNumber
+          }
         }
+      ).then(
+        //发送成功啦
+        res => {
+        //给个消息提示，发送进cd
+        this.$message("验证码已发送");
+        this.CaptchaInterval = 60;
 
-      },1000);
+        var Decounter = setInterval(()=>{
 
-    },
+          this.CaptchaInterval--;
+          if(this.CaptchaInterval <= 0){
+            clearInterval(Decounter);
+          }
+
+        },1000);
+        //处理数据
+        this.requestId = res.data.result;
+        }
+      ).catch(
+        error => {
+          this.$message({
+            message:'发送因为一些原因失败，请查看控制台',
+            type:"warning"
+          });
+          console.log(error);
+        }
+      );
+      },
 
     //用户提交注册信息
     sendRegisterRequest:function(){
-      alert("等待域名备案中。。。");
-    },
+
+      this.$axios.get(
+        this.GLOBAL.requestURL + this.GLOBAL.apiController.login.prefix + this.GLOBAL.apiController.login.captcha,
+        {
+          params:{
+            "requestId":this.requestId,
+            "captcha":this.LoginInfo.captcha
+          }
+        }
+      ).then(
+        res=>{
+          var loginStatus = res.data.code;
+          var loginMessage = res.data.message;
+          //验证码提交是否成功
+          if(loginStatus == 200){
+            var loginResult = res.data.result;
+            this.GLOBAL.setCookie("jwt", loginResult.jwt, 300);
+            if(res.data.newUser){
+              
+            }
+            
+          }
+          else{
+            this.$message({
+              message:loginMessage,
+              type:'warning'
+            });
+          }
+        }
+      ).catch(
+        error =>{
+          this.$message({
+          message:'因为一些原因登录失败，请查看控制台',
+          type:'warning'
+          });
+          console.log(error);
+        }
+      );
+   },
     //检测是否手机端访问
     _isMobile:function() {
       let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)

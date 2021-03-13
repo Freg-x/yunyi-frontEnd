@@ -1,50 +1,33 @@
 <template>
-  <div id="commentArea">
+  <div id="transList">
       <div>
-          <div class="commentMain">
-              评论区
+          <div class="transList">
+              翻译列表
           </div>
       </div>
-
+      
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'commentArea',
+  name: 'transList',
   data(){
       return {
-          newsId:-1,
-          transId:-1,
-
-          commentList:[
-            {
-
-            }
-          ],
-
+          
       }
   },
   components:{
-
-  },
-
-  // watch:{
-  //   $route(to,from){
-
-  //   }
-  // },
-  created:function(){
-
-  },
+  }
 }
 
 </script>
 
 <style>
 
-.commentMain{
+
+.transList{
   margin-left: 10px;
   margin-right:10px;
   margin-bottom: 20px;

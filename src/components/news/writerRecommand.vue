@@ -25,13 +25,6 @@ export default {
 </script>
 
 <style>
-#newsOther {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #909399;
-}
 
 .rest{
   margin-left: 20px;
