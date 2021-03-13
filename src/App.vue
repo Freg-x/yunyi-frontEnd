@@ -82,6 +82,12 @@
 
     </el-dialog>
 
+    <!--后悔啊，为什么没把登录框抽象成一个组件，当我们来到现场时只能抽象modifyUser了-->
+    <modify-new-user
+    :dialogVisible="newUserDialogVisible"
+    @childrenClose="handleChildrenClose"
+    ></modify-new-user>
+
       
       </el-header>
 
@@ -100,12 +106,14 @@
 
 <script>
 
+import modifyNewUser from './components/common/modifyNewUser.vue'
+
 export default {
   name: 'app',
   data(){
     return{
       isMobile:false,
-      
+      loginExpireMin:300,
       //由于加入新按钮所以局右的offset可能改变
       rightOffset:14,
 
@@ -133,6 +141,7 @@ export default {
 
       ],
       LoginFormVisible:false,
+      newUserDialogVisible:true,
       areaList:[
         {
           desc:"中国大陆(+86)",
@@ -233,14 +242,23 @@ export default {
         res=>{
           var loginStatus = res.data.code;
           var loginMessage = res.data.message;
+          console.log(res);
           //验证码提交是否成功
           if(loginStatus == 200){
             var loginResult = res.data.result;
-            this.GLOBAL.setCookie("jwt", loginResult.jwt, 300);
+
+            this.GLOBAL.setCookie("jwt", loginResult.jwt, this.loginExpireMin);
+            this.GLOBAL.setCookie("userId",loginResult.user.id, this.loginExpireMin);
+
             if(res.data.newUser){
-              
+              this.newUserDialogVisible = true;
             }
-            
+            else{
+              this.$message({
+                message:"登录成功！",
+                type:"success"
+              });
+            }
           }
           else{
             this.$message({
@@ -263,10 +281,15 @@ export default {
     _isMobile:function() {
       let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
       return flag;
+    },
+
+    handleChildrenClose:function(){
+      this.newUserDialogVisible = false;
     }
   },
 
   components: {
+    modifyNewUser
   },
 
 created:function(){
