@@ -32,7 +32,8 @@
             </el-popover>
           </el-col>
           <el-col :span="2">
-            <el-button type="text" size="small" @click="LoginFormVisible=true">登录｜注册</el-button>
+            <el-button type="text" size="small" @click="LoginFormVisible=true" v-if="!logging">登录｜注册</el-button>
+            
           </el-col>
 
         </el-row>
@@ -112,6 +113,14 @@ export default {
   name: 'app',
   data(){
     return{
+      logging:false,
+      userInfo:{
+        phone:"",
+        email:"",
+        age:"",
+        nickName:"",
+      },
+
       isMobile:false,
       loginExpireMin:300,
       //由于加入新按钮所以局右的offset可能改变
@@ -141,7 +150,7 @@ export default {
 
       ],
       LoginFormVisible:false,
-      newUserDialogVisible:true,
+      newUserDialogVisible:false,
       areaList:[
         {
           desc:"中国大陆(+86)",
