@@ -92,7 +92,7 @@
                 <div>
                     <a>{{news.writerName}}</a>发布到了<a>{{news.genre}}</a>板块     
                 </div>
-                <i class="el-icon-view">{{news.viewNum}} 次阅读</i>  
+                <i class="el-icon-view"> {{news.viewNum}} 次阅读</i>  
                 
             </div>
 
@@ -121,7 +121,7 @@
     <el-pagination
     id="newsPagination"
     layout="prev, pager, next"
-    :total="newsPageCount"
+    :total="newsCount"
     @current-change="handleCurrentPageChange"
     ></el-pagination>
       
@@ -175,96 +175,14 @@ export default {
 
           searchText:"",
 
-          displayMode:"1",
+          displayMode:"1", //最新、最热等模式
+
+          curPage:1,
+          newsCount:4,
 
           newsList:[
-              {   newsId:"1",
-                  title:"World experts hail Xi's proposals to boost global cause of women",
-                  transTitle:"世界专家称赞习近平提出的推动全球妇女事业的建议",
-                  writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-                  writerName:"Freakx",
-                  genre:"政治",
-                  viewNum:"16.4k",
-                  hasTrans:true,
-                  switchTitle:"显示最高赞翻译",
-                  curMode:0,
-                  likeNum:23,
-                  commentNum:5,
-                  transRequestNum:6,
-                  summary:"President Xi Jinping's call for elimination of violence, discrimination and other forms of inequalities against women will consolidate global consensus on promoting gender equality and boost global action to further buttress the well-being of women, international experts said",
-                  transSummary:"国际专家称，习近平主席呼吁消除对妇女的暴力、歧视和其他形式的不平等，将巩固关于促进性别平等和促进全球行动进一步支持妇女幸福的全球共识。"
-              },
-              {     
-                  newsId:"2",
-                  title:"V6:「勤続25年の男たち」",
-                  transTitle:"V6：连续工作二十五年的男人们",
-                  writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-                  writerName:"Freakx",
-                  genre:"娱乐",
-                  viewNum:"233.4k",
-                  hasTrans:true,
-                  switchTitle:"显示最高赞翻译",
-                  curMode:0,
-                  likeNum:23,
-                  commentNum:5,
-                  transRequestNum:6,
-                  summary:"1995年9月。それは、日本の男性アイドル史の転換点だった。しかしあのとき、それに気づいていた者は誰ひとりいなかったはずだ。25年が経った今、あの9月を振り返ってみて「あのときが転換点だった」と言える類のものである。V6が結成されて四半世紀。6人に軌跡を辿る。",
-                  transSummary:"1995年9月，是日本男性偶像史的转折点。然而，那时候可能并没有任何人注意到这点。在25年后的今天，再回顾那年的9月，才会发现“原来那时候是转折点”。V6成军时间已长达1/4个世纪，让我们一起来回顾这6位成员的活动轨迹。"
-              },
-              {
-                  newsId:"3",
-                  title:"「每日 1 题」10 月热题来袭！",
-                  transTitle:"",
-                  writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-                  writerName:"Freakx",
-                  genre:"科技",
-                  viewNum:"233.4k",
-                  hasTrans:false,
-                  switchTitle:"该文章目前没有翻译",
-                  curMode:0,
-                  likeNum:23,
-                  commentNum:5,
-                  transRequestNum:6,
-                  summary:"前几天看了一份鹅场的面试题，算法部分大半是动态规划，最后一题就是写一个计算编辑距离的函数，今天就专门写一篇文章来探讨一下这个问题。我个人很喜欢编辑距离这个问题，因为它看起来十分困难，解法却出奇得简单漂亮，而且它是少有的比较实用的算法（是的，我承认很多算法问题都不太实用)",
-                  transSummary:""
-              },
-              {
-                  newsId:"4",
-                  title:"「每日 1 题」10 月热题来袭！",
-                  transTitle:"",
-                  writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-                  writerName:"Freakx",
-                  genre:"科技",
-                  viewNum:"233.4k",
-                  hasTrans:false,
-                  switchTitle:"该文章目前没有翻译",
-                  curMode:0,
-                  likeNum:23,
-                  commentNum:5,
-                  transRequestNum:6,
-                  summary:"前几天看了一份鹅场的面试题，算法部分大半是动态规划，最后一题就是写一个计算编辑距离的函数，今天就专门写一篇文章来探讨一下这个问题。我个人很喜欢编辑距离这个问题，因为它看起来十分困难，解法却出奇得简单漂亮，而且它是少有的比较实用的算法（是的，我承认很多算法问题都不太实用)",
-                  transSummary:""
-              },
-              {
-                  newsId:"5",
-                  title:"「每日 1 题」10 月热题来袭！",
-                  transTitle:"",
-                  writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-                  writerName:"Freakx",
-                  genre:"科技",
-                  viewNum:"233.4k",
-                  hasTrans:false,
-                  switchTitle:"该文章目前没有翻译",
-                  curMode:0,
-                  likeNum:23,
-                  commentNum:5,
-                  transRequestNum:6,
-                  summary:"前几天看了一份鹅场的面试题，算法部分大半是动态规划，最后一题就是写一个计算编辑距离的函数，今天就专门写一篇文章来探讨一下这个问题。我个人很喜欢编辑距离这个问题，因为它看起来十分困难，解法却出奇得简单漂亮，而且它是少有的比较实用的算法（是的，我承认很多算法问题都不太实用)",
-                  transSummary:""
-              }
-          ],
 
-          newsPageCount:900
+          ]
       }
   },
   computed:{
@@ -290,9 +208,79 @@ export default {
           this.$router.push({path:'/news/'+_newsId+'/comment'});
       },
       handleCurrentPageChange(newPage){
-          console.log(newPage);
+          this.curPage = newPage;
+      },
+
+      updateList:function(){
+        this.$axios.get(
+            this.GLOBAL.requestURL + this.GLOBAL.apiController.article.prefix
+            + this.GLOBAL.apiController.article.all,
+            {
+                params:{
+                    "pageId": this.curPage,
+                    "pageSize":10
+                }
+            }
+        ).then(
+            res => {
+                //更新news总量
+                this.newsCount = parseInt(res.data.pageCount) * 10;
+                //用于渲染的实例数据结构
+                var sample =               
+                { newsId:"1",
+                  title:"",
+                  transTitle:"",
+                  writerAvatar:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+                  writerName:"",
+                  genre:"",
+                  viewNum:"",
+                  hasTrans:true,
+                  switchTitle:"显示最高赞翻译",
+                  curMode:0,
+                  likeNum:0,
+                  commentNum:0,
+                  transRequestNum:0,
+                  summary:"",
+                  transSummary:""
+              };
+                var newArticleList = [];
+                var articleList = res.data.result.articleList;
+                for(var newArticle of articleList){
+                    //深拷贝
+                    var sampleString = JSON.stringify(sample);
+                    var sampleArticle = JSON.parse(sampleString);
+
+                    sampleArticle.newsId = newArticle.id;
+                    sampleArticle.title = newArticle.title;
+                    sampleArticle.transTitle = newArticle.transTitle;
+                    sampleArticle.writerName = newArticle.name;
+                    sampleArticle.genre = newArticle.genre;
+                    sampleArticle.viewNum = newArticle.viewNum;
+                    sampleArticle.hasTrans = newArticle.hasTrans;
+                    sampleArticle.likeNum = newArticle.likeNum;
+                    sampleArticle.commentNum = newArticle.commentNum;
+                    sampleArticle.transRequestNum = newArticle.transRequestNum;
+                    sampleArticle.summary = newArticle.originalText;
+                    if(newArticle.bestTranslation){
+                        sampleArticle.transSummary = newArticle.bestTranslation.content;    
+                    }
+                    if(sampleArticle.writerName.length > 6){
+                        sampleArticle.writerName = sampleArticle.writerName.slice(0,6)+"...";
+                    }
+                    newArticleList.push(sampleArticle);
+                }
+                this.newsList = newArticleList;
+            }
+        ).catch(
+            error =>{
+                console.log(error);
+            }
+        );
       }
 
+  },
+  created:function(){
+      this.updateList();
   }
 }
 
@@ -416,7 +404,7 @@ export default {
     margin:10px 0px;
     display: flex;
     align-items: center;
-    width: 30%;
+    width: 100%;
     justify-content: space-between;
     color:black;
     letter-spacing: 0.8px;

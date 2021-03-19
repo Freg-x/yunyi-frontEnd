@@ -27,13 +27,41 @@
               width="200"
               trigger="click"
               content="好！很有精神！">
-                <el-button slot="reference" type="text" icon="el-icon-bell" size="medium">
+                <el-button slot="reference" type="text" icon="el-icon-bell" size="big">
                 </el-button>
             </el-popover>
           </el-col>
-          <el-col :span="2">
-            <el-button type="text" size="small" @click="LoginFormVisible=true" v-if="!logging">登录｜注册</el-button>
-            
+          <el-col :span="2" v-if="!logging">
+            <el-button type="text" size="small" @click="LoginFormVisible=true">登录｜注册</el-button>
+          </el-col>
+          <el-col :span="2" class="userCenterContainer" v-else >
+            <el-avatar :size=22 :src="userInfo.avatarSrc"></el-avatar>
+            <el-popover
+            popper-class="userCenter"
+            placement="bottom-end"
+            width="300"
+            trigger="click" 
+            >
+              <div class="userMain">
+                <div class="userName">{{userInfo.nickName}}</div>
+                <div class="phone">注册手机：{{userInfo.phone}}</div>
+               </div>
+               <div class="userOther">
+                  <div class="userItem">
+                    <i class="el-icon-folder-add" style="size:18px;margin-right:8px;font-weight:bold;"></i>
+                    上传文章 
+                  </div>
+                 <div class="userItem" @click="newUserDialogVisible = true">
+                    <i class="el-icon-edit" style="size:18px;margin-right:8px;font-weight:bold;"></i>
+                    修改信息
+                  </div>
+                  <div class="userItem" @click="handleLogout">
+                    <i class="el-icon-remove-outline" style="size:18px;margin-right:8px;font-weight:bold;"></i>
+                    注销
+                  </div>
+                </div> 
+              <el-button slot="reference" type="text" size="medium">{{userInfo.snickName}}</el-button>
+            </el-popover>
           </el-col>
 
         </el-row>
@@ -87,6 +115,7 @@
     <modify-new-user
     :dialogVisible="newUserDialogVisible"
     @childrenClose="handleChildrenClose"
+    @updateSuccess="updateUserInfo"
     ></modify-new-user>
 
       
@@ -119,12 +148,14 @@ export default {
         email:"",
         age:"",
         nickName:"",
+        snickName:"",
+        avatarSrc:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
       },
 
       isMobile:false,
       loginExpireMin:300,
       //由于加入新按钮所以局右的offset可能改变
-      rightOffset:14,
+      rightOffset:13,
 
       sections:[
         {
@@ -259,10 +290,15 @@ export default {
             this.GLOBAL.setCookie("jwt", loginResult.jwt, this.loginExpireMin);
             this.GLOBAL.setCookie("userId",loginResult.user.id, this.loginExpireMin);
 
+            this.LoginFormVisible = false;
+
+            //新用户修改信息
             if(res.data.newUser){
               this.newUserDialogVisible = true;
             }
             else{
+              this.logging = true;
+              this.updateUserInfo(loginResult.user.id);
               this.$message({
                 message:"登录成功！",
                 type:"success"
@@ -292,8 +328,53 @@ export default {
       return flag;
     },
 
+    //处理子组件传递的时间
     handleChildrenClose:function(){
       this.newUserDialogVisible = false;
+    },
+
+    //更新用户信息
+    updateUserInfo:function(userId){
+      this.$axios.get(
+        this.GLOBAL.requestURL + this.GLOBAL.apiController.user.prefix
+        + this.GLOBAL.apiController.user.info + userId
+      ).then(
+        res => {
+          console.log(res);
+          this.userInfo.age = res.data.result.age;
+          this.userInfo.email = res.data.result.email;
+          this.userInfo.nickName = res.data.result.name;
+          if(this.userInfo.nickName.length <= 6){
+            this.userInfo.snickName = this.userInfo.nickName;
+          }
+          else{
+            this.userInfo.snickName = this.userInfo.nickName.slice(0,6)+"...";
+          }
+          this.userInfo.phone = res.data.result.phone;
+        }
+      ).catch(
+       error =>{
+          this.$message({
+          message:'更新用户信息失败',
+          type:'warning'
+          });
+          console.log(error);
+        } 
+      );
+    },
+
+    handleLogout:function(){
+      var jwt = this.GLOBAL.getCookie("jwt");
+      var userId = this.GLOBAL.getCookie("userId");
+      if(jwt && userId){
+        this.GLOBAL.delCookie("jwt");
+        this.GLOBAL.delCookie("userId");
+        this.logging = false;
+        this.$message({
+          message:"退出登录",
+          type:"success"
+        });
+      }
     }
   },
 
@@ -302,9 +383,18 @@ export default {
   },
 
 created:function(){
+      //检测移动端
       this.isMobile = this._isMobile();
       if(this.isMobile){
         this.$router.push({name:'mobile'});
+      }
+
+      //更新用户信息
+      var jwt = this.GLOBAL.getCookie("jwt");
+      var userId = this.GLOBAL.getCookie("userId");
+      if(jwt && userId){
+        this.logging = true;
+        this.updateUserInfo(userId);
       }
   }
 }
@@ -373,4 +463,51 @@ a{
   align-items: center;
 }
 
+.userCenterContainer{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.userMain{
+  padding: 16px;
+  background-image: linear-gradient(to bottom right, rgb(245, 250, 240), rgb(219, 245, 219));
+  border-bottom: 1px solid lightgray;
+}
+
+.userMain .userName{
+  font-size:20px;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 15px;
+  color:#008080;
+}
+
+.userMain .phone{
+  color:#008080;
+}
+
+.userOther{
+  padding:0px;
+}
+
+.userItem{
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  padding-left: 5%;
+  width: 95%;
+  height: 40px;
+  transition: 0.4s;
+}
+
+.userItem:hover{
+  cursor: pointer;
+  background-color: rgb(240,240,240);
+}
+</style>
+<style>
+.userCenter{
+  padding:0px!important;
+}
 </style>

@@ -70,6 +70,7 @@ export default {
       sendModifyRequest:function(){
           //确保你登录了
           var token = this.GLOBAL.getCookie("jwt");
+          var userId = this.GLOBAL.getCookie("userId");
           if(token){
               var data = {
                   "age":this.newUserInfo.age,
@@ -90,6 +91,7 @@ export default {
                         message:"修改成功",
                         type:'success'
                         }); 
+                    this.$emit('updateSuccess', userId);
                     this.emitCloseEvent();
                   }
               ).catch(
