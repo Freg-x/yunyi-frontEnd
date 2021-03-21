@@ -224,7 +224,7 @@ export default {
         ).then(
             res => {
                 //更新news总量
-                this.newsCount = parseInt(res.data.pageCount) * 10;
+                this.newsCount = parseInt(res.data.result.pageCount) * 10;
                 //用于渲染的实例数据结构
                 var sample =               
                 { newsId:"1",
@@ -264,8 +264,8 @@ export default {
                     if(newArticle.bestTranslation){
                         sampleArticle.transSummary = newArticle.bestTranslation.content;    
                     }
-                    if(sampleArticle.writerName.length > 6){
-                        sampleArticle.writerName = sampleArticle.writerName.slice(0,6)+"...";
+                    if(sampleArticle.writerName.length > 20){
+                        sampleArticle.writerName = sampleArticle.writerName.slice(0,20)+"...";
                     }
                     newArticleList.push(sampleArticle);
                 }
@@ -293,6 +293,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #909399;
+  margin: 20px;
 }
 
 #newsMain .genreSelect{

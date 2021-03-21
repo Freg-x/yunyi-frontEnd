@@ -47,7 +47,7 @@
                 <div class="phone">注册手机：{{userInfo.phone}}</div>
                </div>
                <div class="userOther">
-                  <div class="userItem">
+                  <div class="userItem" @click="handleUploaderJump">
                     <i class="el-icon-folder-add" style="size:18px;margin-right:8px;font-weight:bold;"></i>
                     上传文章 
                   </div>
@@ -375,6 +375,20 @@ export default {
           type:"success"
         });
       }
+    },
+
+    //新页面上传
+    handleUploaderJump:function(){
+      var jwt = this.GLOBAL.getCookie("jwt");
+      var userId = this.GLOBAL.getCookie("userId"); 
+      if(jwt && userId){
+        let routeUrl = this.$router.resolve(
+          {
+            name:"newsUploader"
+          }
+        );
+      window.open(routeUrl.href, '_blank');
+      }
     }
   },
 
@@ -436,6 +450,10 @@ a{
   color:red;
 }
 
+.el-main{
+  padding:0px;
+}
+
 .el-select{
   width: 80px;
 }
@@ -455,6 +473,8 @@ a{
 }
 
 .el-footer{
+  position:fixed;
+  bottom:0px;
   color:white;
   width: 100%;
   background-color: #303133;
@@ -471,7 +491,7 @@ a{
 
 .userMain{
   padding: 16px;
-  background-image: linear-gradient(to bottom right, rgb(245, 250, 240), rgb(219, 245, 219));
+  background-image: linear-gradient(to bottom right, rgb(245, 255, 242), rgb(219, 245, 219));
   border-bottom: 1px solid lightgray;
 }
 

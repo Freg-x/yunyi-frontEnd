@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import App from './App.vue'
 import mobile from './components/common/mobile.vue'
+import newsUploader from './components/common/newsUploader.vue'
 
 import news from './components/news/news.vue'
 import singleNews from './components/news/singleNews.vue'
@@ -44,6 +45,11 @@ const routes = [
     path:'/news',
     name:'news',
     component:news
+  },
+  {
+    path:'/news/upload',
+    name:'newsUploader',
+    component:newsUploader
   },
   {
     path:'/news/:newsId',

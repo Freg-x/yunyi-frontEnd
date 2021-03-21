@@ -8,6 +8,16 @@ const apiController = {
         like:"/like",
         // /article/{id}
         info:"/",
+        // /article/{{articleId}}/request_trans
+        request_trans:"/request_trans",
+        // /article/{id}/delete
+        delete:"/delete",
+        // /article/{id}/segs
+        segs:"/segs",
+        // /article/modify
+        modify:"/modify",
+        // /article/upload
+        upload:"/upload",
         // /article/{id}/comments
         comments:"/comments",
         // /article/all
@@ -26,7 +36,40 @@ const apiController = {
         captcha:"/captcha"
     },
     sms:"/sms",
-    translation:"/trans",
+    translation:{
+        prefix:"/trans",
+        // /trans/{id}
+        info:"/",
+        // /trans/{id}/comments
+        comments:"/comments",
+        // /trans/{id}/delete
+        delete:"/delete",
+        // /trans/{id}/modify
+        modify:"/modify",
+        // /trans/{id}/like
+        like:"/like",
+        // /trans/{id}/cancel_like
+        cancel_like:"/cancel_like",
+        // //tans/upload
+        upload:"/upload",
+        comment:{
+            prefix:"/comment",
+            // /trans/comment/{id}/delete
+            delete:"/delete",
+            // /trans/comment/add
+            add:"/add"
+        },
+        detail:{
+            // /trans/{id}/detail
+            prefix:"detail",
+            // /trans/detail/{id}/like
+            like:"/like",
+            // /trans/detail/{id}/cancel_like
+            cancel_like:"/cancel_like",
+            // /trans/detail/comment/add
+            add_comment:"/comment/add"
+        }
+    },
     user:{
         prefix:"/user",
         // /user/id

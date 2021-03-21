@@ -25,10 +25,13 @@ export default {
 </script>
 
 <style>
-
+#writerRecommand{
+  margin:20px;
+  margin-top:0px;
+}
 .rest{
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   margin-bottom: 20px;
   padding: 50px 20px;
   color:black;

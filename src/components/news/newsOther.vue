@@ -31,6 +31,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #909399;
+  margin:20px;
 }
 
 .rest{

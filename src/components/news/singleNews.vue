@@ -99,6 +99,9 @@
 </script>
 
 <style>
+  #singleNews{
+    margin:20px;
+  }
   .mainContent {
     background-color: white;
     border-radius: 5px;
