@@ -10,10 +10,9 @@
           >
           <div>
             <div 
-            :class="{genreSelect:curGenre == genre.id}" 
+            :class="{genreSelect:curGenre == index}" 
             class="genreWrapper"
-            :id="genre.id"
-            @click="handleGenreChange(genre.id)"
+            @click="handleGenreChange(index)"
             >
                 <i :class="genre.icon" 
                 style="font-size:20px"
@@ -57,7 +56,7 @@
           </el-col>
 
           <el-col :span="2" >
-              <el-select v-model="displayMode" id="sortMethod">
+              <el-select v-model="displayMode" id="sortMethod" @change="updateList">
                   <el-option value="1" label="最热"></el-option>
                   <el-option value="2" label="最新"></el-option>
               </el-select>
@@ -138,38 +137,32 @@ export default {
 
           genres:[
               {
-                  id:"genre1",
                   name:"全部",
                   icon:"el-icon-s-home"
               },
               {
-                  id:"genre2",
                   name:"政治",
                   icon:"el-icon-s-management"
               },
               {
-                  id:"genre3",
                   name:"影视",
                   icon:"el-icon-video-camera-solid"
               },
               {
-                  id:"genre4",
                   name:"游戏",
                   icon:"el-icon-s-promotion"
               },
               {
-                  id:"genre5",
                   name:"科技",
                   icon:"el-icon-cpu"
               },
               {
-                  id:"genre6",
                   name:"体育",
                   icon:"el-icon-basketball"
               }
           ],
 
-          curGenre:"genre1", //科技、体育等种类
+          curGenre:0, //科技、体育等种类
 
           defaultMode:"1", //已翻译、未翻译等模式
 
@@ -192,10 +185,8 @@ export default {
   },
   methods:{
       handleGenreChange:function(id){
-          console.log(id);
-          if(id!="")this.curGenre = id;
-          
-
+          this.curGenre = id;
+          this.updateList();
       },
 
       handleModeChange:function(key){
@@ -212,14 +203,21 @@ export default {
       },
 
       updateList:function(){
+        var params = {
+            "pageId": this.curPage,
+            "pageSize": 10
+        };
+        if(this.curGenre != 0){
+            params.genre = this.genres[this.curGenre].name;
+        }
+        if(this.displayMode == 1){
+            params.sort = "hot";
+        }
         this.$axios.get(
             this.GLOBAL.requestURL + this.GLOBAL.apiController.article.prefix
             + this.GLOBAL.apiController.article.all,
             {
-                params:{
-                    "pageId": this.curPage,
-                    "pageSize":10
-                }
+                params
             }
         ).then(
             res => {

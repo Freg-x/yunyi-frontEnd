@@ -106,10 +106,23 @@ function delCookie(name){
     document.cookie = name + "=" + cval + ";expires="+expTime.toGMTString();
 }
 
+function seconds2String(seconds){
+    var dateObj = new Date();
+    dateObj.setTime(seconds * 1000);
+    var year = dateObj.getFullYear();
+    var month = dateObj.getMonth()+1;
+    var day = dateObj.getDate();
+    var hour = dateObj.getHours();
+    var min = dateObj.getMinutes();
+    var sec = dateObj.getSeconds();
+    return year+"-"+month+"-"+day+" "+hour+":"+min+":"+sec;
+}
+
 export default{
     requestURL,
     apiController,
     setCookie,
     getCookie,
-    delCookie
+    delCookie,
+    seconds2String
 }

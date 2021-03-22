@@ -28,7 +28,7 @@
 
         <div class="commentAreaSwitch">
           
-          <router-link :to="commentRoute" :class="{selected : curMode}">评论区</router-link>
+          <router-link :to="commentRoute" :class="{selected : curMode}" >评论区</router-link>
           <span>/</span>
           <router-link :to="transRoute" :class="{selected : !curMode}">翻译区</router-link>
         </div>
@@ -56,6 +56,8 @@
         newsId: '1',
         curMode: 1,
 
+        commentsCount:0,
+
         ArticleInfo: {
           title: "World experts hail Xi's proposals to boost global cause of women",
           writerAvatar: "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
@@ -81,6 +83,29 @@
         return "/news/" + this.newsId + "/trans"
       }
     },
+    methods:{
+      updateArticleInfo:function(){
+
+        var articleUrl = this.GLOBAL.requestURL + this.GLOBAL.apiController.article.prefix
+        + this.GLOBAL.apiController.article.info + this.newsId;
+
+        this.$axios.get(
+          articleUrl
+        ).then(
+          res =>{
+            console.log(res);
+          }
+        ).catch(
+          error =>{
+            this.$message({
+              message:"更新文章内容失败",
+              type:"warning"
+            });
+            console.log(error);
+          }
+        );
+      }
+    },
     watch:{
       $route(to){
         this.curMode = to.fullPath.match("comment");
@@ -93,7 +118,7 @@
     created: function () {
       this.newsId = this.$route.params.newsId;
       this.curMode = this.$route.fullPath.match("comment");
-      console.log("cur_newsid: " + this.newsId);
+      this.updateArticleInfo();
     }
   }
 </script>

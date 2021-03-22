@@ -299,7 +299,7 @@ export default {
 
 
 .submitBottom >>> .el-button{
-    margin-top:340px;
+    margin-top:200px;
     background-color: #404040;
     border-radius: 20px;
     border: 1px solid rgb(201, 252, 204);
