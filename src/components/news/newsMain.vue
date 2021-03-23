@@ -36,9 +36,9 @@
             @select="handleModeChange"
             background-color="#EEEEEE"
             >
-                <el-menu-item index="1">全部内容</el-menu-item>
-                <el-menu-item index="2">已翻译内容</el-menu-item>
-                <el-menu-item index="3">未翻译内容</el-menu-item>
+                <el-menu-item index="0">全部内容</el-menu-item>
+                <el-menu-item index="1">已翻译内容</el-menu-item>
+                <el-menu-item index="2">未翻译内容</el-menu-item>
             </el-menu>
           </el-col>
 
@@ -101,15 +101,15 @@
             <div class="lastLine">
                 <div>
                     <i class="el-icon-sunny"></i>
-                    {{news.likeNum}}人喜欢
+                    {{news.likeNum}} 人喜欢
                 </div>
                 <div>
                     <i class="el-icon-chat-dot-square"></i>
-                    {{news.commentNum}}条评论
+                    {{news.commentNum}} 条评论
                 </div>
                 <div>
                     <i class="el-icon-user"></i>
-                    {{news.transRequestNum}}人求翻译
+                    {{news.transRequestNum}} 人求翻译
                 </div>
             </div>
 
@@ -123,8 +123,7 @@
     :total="newsCount"
     @current-change="handleCurrentPageChange"
     ></el-pagination>
-      
-        
+
   </div>
 </template>
 
@@ -164,7 +163,7 @@ export default {
 
           curGenre:0, //科技、体育等种类
 
-          defaultMode:"1", //已翻译、未翻译等模式
+          defaultMode:"0", //已翻译、未翻译等模式
 
           searchText:"",
 
@@ -190,9 +189,8 @@ export default {
       },
 
       handleModeChange:function(key){
-
-          console.log(key);
-
+          this.defaultMode = key;
+          this.updateList();
       },
 
       handleNewsClick:function(_newsId){
@@ -200,6 +198,7 @@ export default {
       },
       handleCurrentPageChange(newPage){
           this.curPage = newPage;
+          this.updateList();
       },
 
       updateList:function(){
@@ -212,6 +211,14 @@ export default {
         }
         if(this.displayMode == 1){
             params.sort = "hot";
+        }
+        if(this.defaultMode != "0"){
+            if(this.defaultMode == "1"){
+                params.hasTrans = true;
+            }
+            else{
+                params.hasTrans = false;
+            }
         }
         this.$axios.get(
             this.GLOBAL.requestURL + this.GLOBAL.apiController.article.prefix
@@ -292,6 +299,7 @@ export default {
   text-align: center;
   color: #909399;
   margin: 20px;
+  padding-bottom:50px;
 }
 
 #newsMain .genreSelect{
