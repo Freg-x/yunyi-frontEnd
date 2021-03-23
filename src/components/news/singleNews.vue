@@ -109,6 +109,7 @@
     watch:{
       $route(to){
         this.curMode = to.fullPath.match("comment");
+        this.updateArticleInfo();
       }
     },
     components: {

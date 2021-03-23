@@ -107,6 +107,8 @@ function delCookie(name){
 }
 
 function seconds2String(seconds){
+    //慢了13小时
+    seconds += 13 * 3600;
     var dateObj = new Date();
     dateObj.setTime(seconds * 1000);
     var year = dateObj.getFullYear();
@@ -115,6 +117,11 @@ function seconds2String(seconds){
     var hour = dateObj.getHours();
     var min = dateObj.getMinutes();
     var sec = dateObj.getSeconds();
+    if(month < 10)month = "0" + month;
+    if(day < 10)day = "0" + day;
+    if(hour < 10)hour = "0"+ hour;
+    if(min < 10)min = "0"+ min;
+    if(sec < 10)sec = "0"+ sec;
     return year+"-"+month+"-"+day+" "+hour+":"+min+":"+sec;
 }
 

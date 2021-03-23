@@ -30,8 +30,6 @@ export default {
   margin-top:0px;
 }
 .rest{
-  margin-left: 10px;
-  margin-right: 10px;
   margin-bottom: 20px;
   padding: 50px 20px;
   color:black;

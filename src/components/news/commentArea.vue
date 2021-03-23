@@ -130,6 +130,12 @@ export default {
       }
     }
   },
+  watch:{
+    $route(to){
+      this.newsId = to.params.newsId;
+      this.updateCommentList();
+    }
+  },
   methods:{
     handleCurrentPageChange:function(newPage){
       this.curPage = newPage;

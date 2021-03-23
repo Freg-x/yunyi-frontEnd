@@ -211,6 +211,8 @@ export default {
         }
         if(this.displayMode == 1){
             params.sort = "hot";
+        }else{
+            params.sort = "created";
         }
         if(this.defaultMode != "0"){
             if(this.defaultMode == "1"){
