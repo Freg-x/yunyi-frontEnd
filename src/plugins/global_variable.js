@@ -22,6 +22,12 @@ const apiController = {
         comments:"/comments",
         // /article/all
         all:"/all",
+        // /article/{id}/trans
+        trans:"trans",
+        // /article/uploader/{id}
+        uploader:"/uploader",
+        // /article/{id}/view
+        view:"/view",
         comment:{
             prefix:"/comment", 
             // /article/comment/{id}/delete

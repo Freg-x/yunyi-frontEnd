@@ -78,7 +78,7 @@
         </el-col>
         <!-- 右半部分，作者推荐和其他新闻推荐 -->
         <el-col :span="6">
-          <writer-recommand></writer-recommand>
+          <writer-recommand :writerId="ArticleInfo.writerId"></writer-recommand>
           <news-other></news-other>
         </el-col>
       </el-row>
@@ -213,7 +213,6 @@
           }
         ).then(
           res =>{
-            console.log(res);
             var sampleArticle = {
               bestTrans:null,
               title: "",
@@ -265,13 +264,24 @@
             console.log(error);
           }
         );
+      },
+      addViewNum:function(){
+        var viewUrl = this.GLOBAL.requestURL + this.GLOBAL.apiController.article.prefix + "/"
+        + this.newsId + this.GLOBAL.apiController.article.view;
+        this.$axios.post(
+          viewUrl
+        ).then(
+
+        );
       }
     },
     watch:{
       $route(to){
+        
         this.curMode = to.fullPath.match("comment");
         this.transMode = false;
         this.newsId = this.$route.params.newsId;
+        this.addViewNum();
         this.updateArticleInfo();
       }
       },
@@ -280,9 +290,11 @@
       writerRecommand,
     },
     created: function () {
+      //TODO:记录一次访问
       this.newsId = this.$route.params.newsId;
       this.curMode = this.$route.fullPath.match("comment");
       this.transMode = false;
+      this.addViewNum();
       this.updateArticleInfo();
     }
   }
@@ -292,6 +304,7 @@
 /*这块写的很烂，有点hardcode见谅 */
 #singleNews{
   margin:20px;
+  padding-bottom:60px;
 }
 
 .mainContent {

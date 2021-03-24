@@ -13,6 +13,16 @@ export default {
   data(){
       return {
           newsId:-1,
+          translist:[
+            {
+              content:"CCCCCOOOOONNNNTTTTEEEENNNNNTTTT",
+              likeNum:1,
+              transId:1,
+              transTitle:"title",
+              uploaderId:1,
+              uploadeName:"Stream2000"
+            },
+          ]
       }
   },
   watch:{
