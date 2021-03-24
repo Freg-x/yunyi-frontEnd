@@ -94,12 +94,27 @@ export default {
                 var rerturnValue = [];
                 var content = "";
                 for(let char of this.articleInfo.content){
-                    if(char == "," ||char == "." ||char == ";" ||char == "!"|| char == "?"||char=="。"||char=="/"){
+                    if(char == "," ||char == "." ||char == ";" ||char == "!"|| char == "?"||char=="。"||char=="/"||char=="？"||char=="，"||char=="！"){
                         var newObj = {};
                         newObj.content = content;
                         newObj.mark = char;
                         content="";
                         rerturnValue.push(newObj);
+                    }
+                    //换行符可能是歌词等的切分依据
+                    else if(char == '\n'){
+                        let meaningLessContent = true;
+                        for(let contentChar in content){
+                            if(contentChar != '\n' || contentChar != ' ')meaningLessContent = false;
+                        }
+                        if(meaningLessContent)content = content + char;
+                        else{
+                            var newLineObj = {};
+                            newLineObj.content = content;
+                            newLineObj.mark = char;
+                            content = "";
+                            rerturnValue.push(newLineObj);
+                        }
                     }
                     else{
                         content = content + char;

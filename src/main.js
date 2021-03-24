@@ -4,6 +4,7 @@ import axios from 'axios'
 import App from './App.vue'
 import mobile from './components/common/mobile.vue'
 import newsUploader from './components/common/newsUploader.vue'
+import transUploader from './components/common/transUploader.vue'
 
 import news from './components/news/news.vue'
 import singleNews from './components/news/singleNews.vue'
@@ -60,6 +61,11 @@ const routes = [
       {path:'comment', component: commentArea},
       {path:'trans', component: transList}
     ]
+  },
+  {
+    path:'/news/:newsId/transupload',
+    name:'transUploader',
+    component:transUploader
   },
   {
     path:'/lyrics',

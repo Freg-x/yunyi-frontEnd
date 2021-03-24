@@ -10,7 +10,7 @@
       :key="index"
       class="singleRec"
       >
-        <router-link :to="{path:'/news/'+news.newsId}"><b>[{{news.genre}}]</b> {{news.title}}</router-link>
+        <router-link :to="{path:'/news/'+news.newsId+'/comment'}"><b>[{{news.genre}}]</b> {{news.title}}</router-link>
         <div class="commentNum">{{news.hasTrans?"有翻译, ":"未翻译, "}}{{news.commentNum}} 人参与讨论</div>
       </div>
     </div>

@@ -178,6 +178,8 @@ export default {
                 type:"success"
               });
             }
+            this.addCommentContent = "";
+            this.replyingComment = null;
             this.updateCommentList();
           }
         ).catch(

@@ -1,11 +1,8 @@
 <template>
   <div id="transList">
       <div>
-          <div class="transList">
-              翻译列表
-          </div>
+          翻译列表
       </div>
-      
   </div>
 </template>
 
@@ -15,23 +12,36 @@ export default {
   name: 'transList',
   data(){
       return {
-          
+          newsId:-1,
       }
   },
+  watch:{
+    $route(to){
+      this.newsId = to.params.newsId;
+      this.updateTransList();
+    }
+  },
+  methods:{
+    updateTransList:function(){
+    }
+  },
   components:{
+  },
+  created:function(){
+    this.newsId = this.$route.params.newsId;
+    this.updateTransList();
   }
 }
 
 </script>
 
-<style>
+<style scoped>
 
-
-.transList{
+#transList{
   margin-left: 10px;
   margin-right:10px;
   margin-bottom: 20px;
-  padding: 50px 20px;
+  padding:20px;
   color:black;
   height: 100px;
   border-radius: 10px;

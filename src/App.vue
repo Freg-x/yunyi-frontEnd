@@ -16,7 +16,7 @@
           v-for="(section,index) in sections"
           :key="index"
           >
-            <router-link v-bind:to="section.url">{{section.name}}</router-link>
+            <router-link v-bind:to="section.url" :class="{disabled:section.disabled}">{{section.name}}</router-link>
           </el-col>
 
           <!--右半部分banner-->
@@ -149,7 +149,7 @@ export default {
         age:"",
         nickName:"",
         snickName:"",
-        avatarSrc:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+        avatarSrc:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       },
 
       isMobile:false,
@@ -160,23 +160,28 @@ export default {
       sections:[
         {
           name:'新闻',
-          url:'/news'
+          url:'/news',
+          disabled:false
         },
         {
           name:'文章',
-          url:'/articles'
+          url:'/articles',
+          disabled:true
         },
         {
           name:'歌词',
-          url:'/lyrics'
+          url:'/lyrics',
+          disabled:true
         },
         {
           name:'视频',
-          url:'/videos'
+          url:'/videos',
+          disabled:true
         },
         {
           name:'教育',
-          url:'/education'
+          url:'/education',
+          disabled:true
         }
 
       ],
@@ -340,7 +345,6 @@ export default {
         + this.GLOBAL.apiController.user.info + userId
       ).then(
         res => {
-          console.log(res);
           this.userInfo.age = res.data.result.age;
           this.userInfo.email = res.data.result.email;
           this.userInfo.nickName = res.data.result.name;
@@ -422,6 +426,12 @@ created:function(){
   text-align: center;
   font-size:12px;
   color: #2c3e50;
+}
+
+.disabled{
+  pointer-events: none;
+  cursor: wait;
+  color: rgb(180,180,180);
 }
 
 .el-header{
