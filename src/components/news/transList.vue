@@ -34,6 +34,7 @@
             <el-button
             icon="el-icon-upload"
             :disabled="!logging"
+            @click="handleUploadTrans"
             >
               {{buttonText}}
             </el-button>
@@ -94,6 +95,10 @@ export default {
         articleTransUrl,{params}
       ).then(
         res => {
+          if(!res.data.result){
+            this.totalTrans = 0;
+            return;
+          }
           this.totalTrans = res.data.result.transCount;
           if(this.totalTrans != 0){
             this.bestTransId = res.data.result.bestTranslation.transId;
@@ -121,6 +126,16 @@ export default {
     handleCurrentPageChange:function(newPage){
       this.curPage = newPage;
       this.updateTransList();
+    },
+    handleUploadTrans:function(){
+      if(this.GLOBAL.getCookie("jwt")){
+        this.$router.push({path:'/news/'+this.newsId+"/transUpload"});
+      }else{
+        this.$message({
+          message:"登录失效！",
+          type:"warning"
+        });
+      }
     },
     initPage:function(){
       this.curPage = 1;

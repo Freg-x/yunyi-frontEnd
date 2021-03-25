@@ -208,6 +208,21 @@ export default {
           var token = this.GLOBAL.getCookie("jwt");
           if(token){
 
+              if(this.articleInfo.title.trim() == ""){
+                  this.$message({
+                      message:"标题不能为空！",
+                      type:"warning"
+                  });
+                  return;
+              }
+              if(sendingSeg.length == 0){
+                  this.$message({
+                      message:"请输入有意义的文章内容！",
+                      type:"warning"
+                  });
+                  return;
+              }
+
               var data = {
                   "title":this.articleInfo.title,
                   "genre":this.articleInfo.genre,
@@ -276,7 +291,7 @@ export default {
 
 .el-col{
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
     background-color: white;
 }
 
@@ -313,10 +328,8 @@ export default {
     background-color: rgb(100,100,100);
 }
 
-
-
 .submitBottom >>> .el-button{
-    margin-top:200px;
+    margin-top: 200px;
     background-color: #404040;
     border-radius: 20px;
     border: 1px solid rgb(201, 252, 204);

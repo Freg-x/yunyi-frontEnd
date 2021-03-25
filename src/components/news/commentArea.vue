@@ -152,6 +152,15 @@ export default {
     handleAddComment:function(){
       var token = this.GLOBAL.getCookie("jwt");
       if(token){
+
+        if(this.addCommentContent.trim() == ""){
+          this.$message({
+            message:"评论不能为空！",
+            type:"warning"
+          });
+          return;
+        }
+
         var data = {
           "articleId":this.newsId,
           "content":this.addCommentContent,

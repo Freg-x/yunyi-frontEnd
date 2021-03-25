@@ -393,6 +393,12 @@ export default {
         );
       window.open(routeUrl.href, '_blank');
       }
+      else{
+        this.$message({
+          message:"登录失效！",
+          type:"warning"
+        });
+      }
     }
   },
 
