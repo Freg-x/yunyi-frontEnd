@@ -69,8 +69,8 @@ export default {
       }
   },
   watch:{
-    $route(to){
-      thiss.initPage();
+    $route(){
+      this.initPage();
     }
   },
   computed:{
@@ -113,6 +113,7 @@ export default {
         }
       ).catch(
         error => {
+          console.log(error);
         }
       );
 
