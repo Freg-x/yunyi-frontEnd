@@ -298,7 +298,7 @@ export default {
             this.LoginFormVisible = false;
 
             //新用户修改信息
-            if(res.data.newUser){
+            if(res.data.result.newUser){
               this.newUserDialogVisible = true;
             }
             else{
