@@ -277,7 +277,6 @@
     },
     watch:{
       $route(to){
-        
         this.curMode = to.fullPath.match("comment");
         this.transMode = false;
         this.newsId = this.$route.params.newsId;
@@ -290,7 +289,6 @@
       writerRecommand,
     },
     created: function () {
-      //TODO:记录一次访问
       this.newsId = this.$route.params.newsId;
       this.curMode = this.$route.fullPath.match("comment");
       this.transMode = false;
@@ -401,12 +399,12 @@
 }
 
 .mainContent .contentBottom .bottomLeft .likeIcon:hover{
-  color:rgb(165, 152, 34);
+  color: gold;
   cursor: pointer;
 }
 
 .mainContent .contentBottom .bottomLeft .yellow{
-  color:rgb(165, 152, 34);
+  color: gold;
 }
 
 .mainContent .contentBottom .bottomLeft .requestIcon{

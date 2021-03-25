@@ -94,7 +94,9 @@ export default {
                 var rerturnValue = [];
                 var content = "";
                 for(let char of this.articleInfo.content){
-                    if(char == "," ||char == "." ||char == ";" ||char == "!"|| char == "?"||char=="。"||char=="/"||char=="？"||char=="，"||char=="！"){
+                    if(char == "," ||char == "." ||char == ";" ||char == "!"|| 
+                    char == "?"||char=="。"||char=="/"||
+                    char=="？"||char=="，"||char=="！"||char=="、"){
                         var newObj = {};
                         newObj.content = content;
                         newObj.mark = char;

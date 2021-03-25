@@ -23,7 +23,7 @@ const apiController = {
         // /article/all
         all:"/all",
         // /article/{id}/trans
-        trans:"trans",
+        trans:"/trans",
         // /article/uploader/{id}
         uploader:"/uploader",
         // /article/{id}/view

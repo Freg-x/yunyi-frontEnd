@@ -86,7 +86,6 @@ export default {
             newArticle.commentNum = resArticle.commentNum;
             this.ArticleList.push(newArticle);
           }
-          console.log(res);
         }
       ).catch(
         error => {

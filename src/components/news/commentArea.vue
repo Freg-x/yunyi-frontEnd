@@ -100,8 +100,6 @@ export default {
 
           curPage:1,
 
-          curRefComment:-1,
-
           totalComments:0,
 
           avatar:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
@@ -132,6 +130,8 @@ export default {
   },
   watch:{
     $route(to){
+      this.curPage = 1;
+      this.replyingComment = null;
       this.newsId = to.params.newsId;
       this.updateCommentList();
     }
@@ -148,7 +148,6 @@ export default {
           break;
         }
       }
-      console.log(this.replyingComment);
     },
     handleAddComment:function(){
       var token = this.GLOBAL.getCookie("jwt");
@@ -252,6 +251,8 @@ export default {
   //   }
   // },
   created:function(){
+    this.curPage = 1;
+    this.replyingComment = null;
     this.newsId = this.$route.params.newsId;
     this.logging = this.GLOBAL.getCookie("jwt");
     this.updateCommentList();
