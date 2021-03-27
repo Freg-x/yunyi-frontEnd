@@ -230,7 +230,6 @@ export default {
             }
         ).then(
             res => {
-                console.log(res);
                 //更新news总量
                 this.newsCount = parseInt(res.data.result.pageCount) * 10;
                 //用于渲染的实例数据结构

@@ -56,7 +56,7 @@ const apiController = {
         like:"/like",
         // /trans/{id}/cancel_like
         cancel_like:"/cancel_like",
-        // //tans/upload
+        // //trans/upload
         upload:"/upload",
         comment:{
             prefix:"/comment",

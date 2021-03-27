@@ -153,7 +153,7 @@ export default {
       },
 
       isMobile:false,
-      loginExpireMin:300,
+      loginExpireMin:1440,
       //由于加入新按钮所以局右的offset可能改变
       rightOffset:13,
 
