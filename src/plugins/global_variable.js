@@ -67,7 +67,7 @@ const apiController = {
         },
         detail:{
             // /trans/{id}/detail
-            prefix:"detail",
+            prefix:"/detail",
             // /trans/detail/{id}/like
             like:"/like",
             // /trans/detail/{id}/cancel_like

@@ -10,6 +10,7 @@ import news from './components/news/news.vue'
 import singleNews from './components/news/singleNews.vue'
 import commentArea from './components/news/commentArea.vue'
 import transList from './components/news/transList.vue'
+import singleTrans from './components/news/singleTrans.vue'
 
 import lyrics from './components/lyrics/lyrics.vue'
 import intro from './components/intro/intro.vue'
@@ -38,7 +39,7 @@ const routes = [
     component:intro
   },
   {
-    path:'mobile',
+    path:'/mobile',
     name:'mobile',
     component:mobile
   },
@@ -57,7 +58,6 @@ const routes = [
     name:'singleNews',
     component:singleNews,
     children:[
-      {path:'', component: commentArea},
       {path:'comment', component: commentArea},
       {path:'trans', component: transList}
     ]
@@ -66,6 +66,11 @@ const routes = [
     path:'/news/:newsId/transupload',
     name:'transUploader',
     component:transUploader
+  },
+  {
+    path:'/news/:newsId/:transId',
+    name:'singleTrans',
+    component:singleTrans
   },
   {
     path:'/lyrics',

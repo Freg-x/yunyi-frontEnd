@@ -16,7 +16,7 @@
                 <el-avatar :size="30" :src="trans.uploaderAvatar"></el-avatar>
               </el-col>
               <el-col :span="23" class="InfoWrapper">
-                <div class="singleTransTitle">
+                <div class="singleTransTitle" @click="handleJumpTrans(trans.transId)">
                   <span v-if="trans.transId == bestTransId" class="bestTransColor">
                     <i class="el-icon-medal-1"></i>[最佳翻译] 
                   </span>
@@ -136,6 +136,9 @@ export default {
           type:"warning"
         });
       }
+    },
+    handleJumpTrans:function(transId){
+      this.$router.push({path:"/news/"+this.newsId+"/"+transId});
     },
     initPage:function(){
       this.curPage = 1;
