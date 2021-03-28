@@ -72,6 +72,8 @@ const apiController = {
             like:"/like",
             // /trans/detail/{id}/cancel_like
             cancel_like:"/cancel_like",
+            // /trans/detail/{id}/comments
+            comments:"/comments",
             // /trans/detail/comment/add
             add_comment:"/comment/add"
         }
